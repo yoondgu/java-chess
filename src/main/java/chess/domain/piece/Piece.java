@@ -83,6 +83,11 @@ public abstract class Piece {
         return type == PieceType.EMPTY;
     }
 
+    public boolean isNotEmpty() {
+        return type != PieceType.EMPTY;
+    }
+
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
