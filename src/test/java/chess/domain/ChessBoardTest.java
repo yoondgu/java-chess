@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import chess.domain.piece.Empty;
-import chess.domain.piece.Pawn;
 import chess.domain.piece.Piece;
 import java.util.HashMap;
 import java.util.Map;
@@ -100,7 +99,7 @@ class ChessBoardTest {
         assertThat(piecesByPosition.get(Position.of(1, 2)))
                 .isEqualTo(Empty.getInstance());
         assertThat(piecesByPosition.get(Position.of(1, 4)))
-                .isEqualTo(new Pawn(Camp.WHITE));
+                .isEqualTo(WHITE_PAWN);
     }
 
     @DisplayName("진영 별 남아있는 말에 따른 점수를 합산한다.")

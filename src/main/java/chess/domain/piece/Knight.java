@@ -6,10 +6,13 @@ import chess.domain.Direction;
 import chess.domain.Path;
 import chess.domain.Position;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class Knight extends Piece {
 
+    private static final Map<Camp, Knight> CACHE = new EnumMap<>(Camp.class);
     private static final List<Direction> directions;
 
     static {
@@ -19,10 +22,18 @@ public class Knight extends Piece {
                 Direction.WEST_WEST_SOUTH, Direction.WEST_WEST_NORTH,
                 Direction.WEST_NORTH_NORTH, Direction.EAST_NORTH_NORTH
         );
+
+        CACHE.put(Camp.WHITE, new Knight(Camp.WHITE));
+        CACHE.put(Camp.BLACK, new Knight(Camp.BLACK));
     }
 
-    public Knight(final Camp camp) {
+    private Knight(final Camp camp) {
         super(camp, PieceType.KNIGHT);
+    }
+
+    public static Knight of(final Camp camp) {
+        validateCampSetting(camp);
+        return CACHE.get(camp);
     }
 
     @Override

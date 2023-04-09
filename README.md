@@ -217,10 +217,10 @@ sequenceDiagram
 ## 리뷰 반영 및 리팩터링 목록
 
 - 설계 관련
-    - [ ] Piece 인스턴스 캐싱
+    - [x] Piece 인스턴스 캐싱
     - [x] Piece.canMove~() 에서 이동방향 검증까지 직접 할 수 있도록 개선
         - Piece 로 체스판의 이동 검증 로직 책임 위임 및 통합
-    - [ ] CommandActionMapper `Enum 요소 조회 비용` vs `Map 클래스로 변경 후, static 상수로 인한 메모리 사용` 비교
+    - [x] CommandActionMapper `Enum 요소 조회 비용` vs `Map 클래스로 변경 후, static 상수로 인한 메모리 사용` 비교
         - 두 가지의 비용만 비교했을 때에는 큰 차이가 없고, Map 클래스가 더 직관적일 수 있다.
         - 하지만 CommandActionMapper 는 Command 의 목록에 대해 관리하는 클래스이기도 하다.
             - OutputView 에서도 해당 클래스의 Command 를 참조해 안내 문구를 출력한다.

@@ -6,10 +6,13 @@ import chess.domain.Direction;
 import chess.domain.Path;
 import chess.domain.Position;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class Queen extends Piece {
 
+    private static final Map<Camp, Queen> CACHE = new EnumMap<>(Camp.class);
     private static final List<Direction> directions;
 
     static {
@@ -18,10 +21,18 @@ public class Queen extends Piece {
                 Direction.NORTH_EAST, Direction.NORTH_WEST,
                 Direction.SOUTH_EAST, Direction.SOUTH_WEST
         );
+
+        CACHE.put(Camp.WHITE, new Queen(Camp.WHITE));
+        CACHE.put(Camp.BLACK, new Queen(Camp.BLACK));
     }
 
-    public Queen(final Camp camp) {
+    private Queen(final Camp camp) {
         super(camp, PieceType.QUEEN);
+    }
+
+    public static Queen of(final Camp camp) {
+        validateCampSetting(camp);
+        return CACHE.get(camp);
     }
 
     @Override
@@ -47,5 +58,5 @@ public class Queen extends Piece {
     public double sumPointsOf(final List<Position> existingPositions) {
         return (type.getPoint()) * (existingPositions.size());
     }
-    
+
 }

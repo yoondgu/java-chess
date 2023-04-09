@@ -4,7 +4,6 @@ import static chess.domain.piece.PieceFixture.BLACK_BISHOP;
 import static chess.domain.piece.PieceFixture.WHITE_KING;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.domain.Camp;
 import chess.domain.CheckablePaths;
 import chess.domain.Position;
 import org.junit.jupiter.api.DisplayName;
@@ -18,9 +17,7 @@ class KingTest {
     @DisplayName("King 은 앞뒤양옆 1칸 이동 후 대각선으로 1칸 이동 가능하다.")
     @Test
     void 이동_범위_확인() {
-        King king = new King(Camp.WHITE);
-
-        CheckablePaths checkablePaths = king.findCheckablePaths(START_POSITION);
+        CheckablePaths checkablePaths = WHITE_KING.findCheckablePaths(START_POSITION);
 
         assertThat(checkablePaths.positionsSize()).isEqualTo(3);
     }

@@ -7,19 +7,15 @@ import java.util.List;
 
 public class Empty extends Piece {
 
+    private static final Empty CACHE = new Empty();
     private static final String EMPTY_PIECE_ERROR_MESSAGE = "선택한 말이 존재하지 않습니다.(EMPTY)";
-    private static final Piece instance = new Empty();
-
-    private Empty(final Camp camp, final PieceType type) {
-        super(camp, type);
-    }
 
     private Empty() {
         super(Camp.EMPTY, PieceType.EMPTY);
     }
 
     public static Piece getInstance() {
-        return instance;
+        return CACHE;
     }
 
     @Override

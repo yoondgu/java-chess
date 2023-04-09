@@ -19,6 +19,12 @@ public abstract class Piece {
         this.type = type;
     }
 
+    protected static void validateCampSetting(Camp camp) {
+        if (camp == Camp.EMPTY) {
+            throw new IllegalArgumentException("진영이 EMPTY 인 말을 만들 수 없습니다.");
+        }
+    }
+
     public void validateMove(Position source, Position destination, Map<Position, Piece> piecesByPosition) {
         CheckablePaths checkablePaths = findCheckablePaths(source);
         Path path = checkablePaths.findPathContainingPosition(destination);

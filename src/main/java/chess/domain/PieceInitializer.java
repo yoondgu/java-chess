@@ -19,19 +19,19 @@ import java.util.stream.Collectors;
 
 public enum PieceInitializer {
 
-    WHITE_ROOK(List.of(1, 8), Camp.WHITE.startingRank(), new Rook(Camp.WHITE)),
-    WHITE_KNIGHT(List.of(2, 7), Camp.WHITE.startingRank(), new Knight(Camp.WHITE)),
-    WHITE_BISHOP(List.of(3, 6), Camp.WHITE.startingRank(), new Bishop(Camp.WHITE)),
-    WHITE_QUEEN(List.of(4), Camp.WHITE.startingRank(), new Queen(Camp.WHITE)),
-    WHITE_KING(List.of(5), Camp.WHITE.startingRank(), new King(Camp.WHITE)),
-    WHITE_PAWN(List.of(1, 2, 3, 4, 5, 6, 7, 8), Camp.WHITE.startingPawnRank(), new Pawn(Camp.WHITE)),
+    WHITE_ROOK(List.of(1, 8), Camp.WHITE.startingRank(), Rook.of(Camp.WHITE)),
+    WHITE_KNIGHT(List.of(2, 7), Camp.WHITE.startingRank(), Knight.of(Camp.WHITE)),
+    WHITE_BISHOP(List.of(3, 6), Camp.WHITE.startingRank(), Bishop.of(Camp.WHITE)),
+    WHITE_QUEEN(List.of(4), Camp.WHITE.startingRank(), Queen.of(Camp.WHITE)),
+    WHITE_KING(List.of(5), Camp.WHITE.startingRank(), King.of(Camp.WHITE)),
+    WHITE_PAWN(List.of(1, 2, 3, 4, 5, 6, 7, 8), Camp.WHITE.startingPawnRank(), Pawn.of(Camp.WHITE)),
 
-    BLACK_ROOK(List.of(1, 8), Camp.BLACK.startingRank(), new Rook(Camp.BLACK)),
-    BLACK_KNIGHT(List.of(2, 7), Camp.BLACK.startingRank(), new Knight(Camp.BLACK)),
-    BLACK_BISHOP(List.of(3, 6), Camp.BLACK.startingRank(), new Bishop(Camp.BLACK)),
-    BLACK_QUEEN(List.of(4), Camp.BLACK.startingRank(), new Queen(Camp.BLACK)),
-    BLACK_KING(List.of(5), Camp.BLACK.startingRank(), new King(Camp.BLACK)),
-    BLACK_PAWN(List.of(1, 2, 3, 4, 5, 6, 7, 8), Camp.BLACK.startingPawnRank(), new Pawn(Camp.BLACK)),
+    BLACK_ROOK(List.of(1, 8), Camp.BLACK.startingRank(), Rook.of(Camp.BLACK)),
+    BLACK_KNIGHT(List.of(2, 7), Camp.BLACK.startingRank(), Knight.of(Camp.BLACK)),
+    BLACK_BISHOP(List.of(3, 6), Camp.BLACK.startingRank(), Bishop.of(Camp.BLACK)),
+    BLACK_QUEEN(List.of(4), Camp.BLACK.startingRank(), Queen.of(Camp.BLACK)),
+    BLACK_KING(List.of(5), Camp.BLACK.startingRank(), King.of(Camp.BLACK)),
+    BLACK_PAWN(List.of(1, 2, 3, 4, 5, 6, 7, 8), Camp.BLACK.startingPawnRank(), Pawn.of(Camp.BLACK)),
 
     EMPTY_3_RANK(List.of(1, 2, 3, 4, 5, 6, 7, 8), Camp.EMPTY.startingRank(), Empty.getInstance()),
     EMPTY_4_RANK(List.of(1, 2, 3, 4, 5, 6, 7, 8), Camp.EMPTY.startingRank() + 1, Empty.getInstance()),

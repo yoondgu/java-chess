@@ -4,7 +4,6 @@ import static chess.domain.piece.PieceFixture.BLACK_BISHOP;
 import static chess.domain.piece.PieceFixture.WHITE_QUEEN;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.domain.Camp;
 import chess.domain.CheckablePaths;
 import chess.domain.Position;
 import org.junit.jupiter.api.DisplayName;
@@ -18,9 +17,7 @@ public class QueenTest {
     @DisplayName("Queen 은 동서남북, 대각선으로 원하는 만큼 이동 가능하다.")
     @Test
     void 이동_범위_확인() {
-        Queen queen = new Queen(Camp.WHITE);
-
-        CheckablePaths checkablePaths = queen.findCheckablePaths(START_POSITION);
+        CheckablePaths checkablePaths = WHITE_QUEEN.findCheckablePaths(START_POSITION);
 
         assertThat(checkablePaths.positionsSize()).isEqualTo(23);
     }
@@ -36,5 +33,5 @@ public class QueenTest {
     void 공격_가능_확인_상대말() {
         assertThat(WHITE_QUEEN.canAttack(START_POSITION, DESTINATION_POSITION, BLACK_BISHOP)).isTrue();
     }
-    
+
 }

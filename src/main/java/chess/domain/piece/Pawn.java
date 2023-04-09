@@ -6,18 +6,32 @@ import chess.domain.Direction;
 import chess.domain.Path;
 import chess.domain.Position;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class Pawn extends Piece {
 
     public static final double CONTINUOUS_PAWNS_POINT = 0.5;
+    private static final Map<Camp, Pawn> CACHE = new EnumMap<>(Camp.class);
     private static final int WHITE_START_RANK = 2;
     private static final int BLACK_START_RANK = 7;
+
+    static {
+        CACHE.put(Camp.WHITE, new Pawn(Camp.WHITE));
+        CACHE.put(Camp.BLACK, new Pawn(Camp.BLACK));
+    }
+
     private final List<Direction> directions;
 
-    public Pawn(Camp camp) {
+    private Pawn(Camp camp) {
         super(camp, PieceType.PAWN);
         this.directions = getDirectionsByColor();
+    }
+
+    public static Pawn of(final Camp camp) {
+        validateCampSetting(camp);
+        return CACHE.get(camp);
     }
 
     private List<Direction> getDirectionsByColor() {

@@ -73,7 +73,7 @@ public class ChessBoard {
     }
 
     private boolean isKingAttacked() {
-        return !(piecesByPosition.containsValue(new King(currentTurnCamp.transfer())));
+        return !(piecesByPosition.containsValue(King.of(currentTurnCamp.transfer())));
     }
 
     private void switchCampTurn() {

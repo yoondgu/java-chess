@@ -4,18 +4,18 @@ import chess.domain.Camp;
 
 public class PieceFixture {
 
-    public static final Piece WHITE_ROOK = new Rook(Camp.WHITE);
-    public static final Piece WHITE_KNIGHT = new Knight(Camp.WHITE);
-    public static final Piece WHITE_BISHOP = new Bishop(Camp.WHITE);
-    public static final Piece WHITE_QUEEN = new Queen(Camp.WHITE);
-    public static final Piece WHITE_KING = new King(Camp.WHITE);
-    public static final Piece WHITE_PAWN = new Pawn(Camp.WHITE);
+    public static final Piece WHITE_ROOK = Rook.of(Camp.WHITE);
+    public static final Piece WHITE_KNIGHT = Knight.of(Camp.WHITE);
+    public static final Piece WHITE_BISHOP = Bishop.of(Camp.WHITE);
+    public static final Piece WHITE_QUEEN = Queen.of(Camp.WHITE);
+    public static final Piece WHITE_KING = King.of(Camp.WHITE);
+    public static final Piece WHITE_PAWN = Pawn.of(Camp.WHITE);
 
-    public static final Piece BLACK_ROOK = new Rook(Camp.BLACK);
-    public static final Piece BLACK_KNIGHT = new Knight(Camp.BLACK);
-    public static final Piece BLACK_BISHOP = new Bishop(Camp.BLACK);
-    public static final Piece BLACK_QUEEN = new Queen(Camp.BLACK);
-    public static final Piece BLACK_KING = new King(Camp.BLACK);
-    public static final Piece BLACK_PAWN = new Pawn(Camp.BLACK);
-    
+    public static final Piece BLACK_ROOK = Rook.of(Camp.BLACK);
+    public static final Piece BLACK_KNIGHT = Knight.of(Camp.BLACK);
+    public static final Piece BLACK_BISHOP = Bishop.of(Camp.BLACK);
+    public static final Piece BLACK_QUEEN = Queen.of(Camp.BLACK);
+    public static final Piece BLACK_KING = King.of(Camp.BLACK);
+    public static final Piece BLACK_PAWN = Pawn.of(Camp.BLACK);
+
 }
