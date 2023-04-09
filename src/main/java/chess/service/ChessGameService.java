@@ -1,5 +1,7 @@
 package chess.service;
 
+import static chess.service.status.GameStatus.OVER;
+import static chess.service.status.GameStatus.READY;
 import static chess.service.status.GameStatus.RUNNING;
 
 import chess.domain.Camp;
@@ -18,7 +20,7 @@ public class ChessGameService {
 
     private final ChessBoardService chessBoardService;
     private ChessBoard chessBoard;
-    private GameStatus gameStatus = GameStatus.READY;
+    private GameStatus gameStatus = READY;
 
     public ChessGameService(ChessBoardService chessBoardService) {
         this.chessBoardService = chessBoardService;
@@ -43,18 +45,18 @@ public class ChessGameService {
         );
         ChessBoardStatus boardStatus = chessBoard.status();
         if (boardStatus.isOver()) {
-            gameStatus = GameStatus.OVER;
+            gameStatus = OVER;
         }
         chessBoardService.saveChessBoard(chessBoard);
     }
 
     public void end(CommandRequest commandRequest) {
         GameStatusValidator.validateEnd(gameStatus);
-        gameStatus = GameStatus.READY;
+        gameStatus = READY;
     }
 
     public boolean isOver() {
-        return gameStatus == GameStatus.OVER;
+        return gameStatus == OVER;
     }
 
     public GameResultResponse computeResult(CommandRequest commandRequest) {
