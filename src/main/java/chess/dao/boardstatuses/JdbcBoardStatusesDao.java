@@ -28,15 +28,16 @@ public class JdbcBoardStatusesDao implements BoardStatusesDao {
     public Optional<ChessBoardStatus> findByBoardId(final int boardId) {
         final String query = "SELECT current_turn, is_over FROM board_statuses WHERE board_id = ? AND is_over = false";
 
-        final ChessBoardStatus result = jdbcTemplate.executeQuery(query, List.of(boardId), resultSet -> {
-            if (resultSet.next()) {
-                return new ChessBoardStatus(
-                        Camp.valueOf(resultSet.getString(1)),
-                        resultSet.getBoolean(2)
-                );
-            }
-            return null;
-        });
+        final ChessBoardStatus result = jdbcTemplate.executeQuery(query, List.of(boardId),
+                resultSet -> {
+                    if (resultSet.next()) {
+                        return new ChessBoardStatus(
+                                Camp.valueOf(resultSet.getString(1)),
+                                resultSet.getBoolean(2)
+                        );
+                    }
+                    return null;
+                });
 
         return Optional.ofNullable(result);
     }

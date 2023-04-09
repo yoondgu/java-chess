@@ -23,13 +23,18 @@ public class JdbcTemplate {
 
     public <T> T executeQuery(String query, List<Object> parameters, RowMapper<T> rowMapper) {
         try (final Connection connection = connectionManager.getConnection();
-             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            setParameters(preparedStatement, parameters);
-            ResultSet resultSet = preparedStatement.executeQuery();
+             final PreparedStatement preparedStatement = connection.prepareStatement(query);
+             final ResultSet resultSet = executePreparedStatementQuery(preparedStatement, parameters)) {
             return rowMapper.mapRow(resultSet);
         } catch (SQLException exception) {
             throw new DatabaseQueryException(exception.getMessage(), query);
         }
+    }
+
+    private ResultSet executePreparedStatementQuery(PreparedStatement preparedStatement, List<Object> parameters)
+            throws SQLException {
+        setParameters(preparedStatement, parameters);
+        return preparedStatement.executeQuery();
     }
 
     private <T> void setParameters(PreparedStatement preparedStatement, List<Object> parameters) throws SQLException {
