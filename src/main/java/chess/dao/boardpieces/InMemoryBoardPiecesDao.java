@@ -20,9 +20,4 @@ public class InMemoryBoardPiecesDao implements BoardPiecesDao {
         repository.put(boardId, piecesByPosition);
     }
 
-    @Override
-    public void delete(final int boardId) {
-        repository.remove(boardId);
-    }
-
 }

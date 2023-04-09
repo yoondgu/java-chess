@@ -11,6 +11,4 @@ public interface BoardPiecesDao {
 
     void insertOrUpdate(final int boardId, final Map<Position, Piece> piecesByPosition);
 
-    void delete(final int boardId);
-
 }

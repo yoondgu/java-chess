@@ -57,11 +57,4 @@ public class JdbcBoardStatusesDao implements BoardStatusesDao {
         ));
     }
 
-    @Override
-    public void delete(final int boardId) {
-        final String query = "DELETE FROM board_statuses WHERE board_id = ?";
-
-        jdbcTemplate.executeUpdate(query, List.of(boardId));
-    }
-
 }

@@ -31,9 +31,4 @@ public class InMemoryBoardStatusesDao implements BoardStatusesDao {
         repository.put(boardId, status);
     }
 
-    @Override
-    public void delete(final int boardId) {
-        repository.remove(boardId);
-    }
-
 }

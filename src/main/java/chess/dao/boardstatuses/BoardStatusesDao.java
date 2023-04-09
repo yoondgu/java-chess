@@ -12,6 +12,4 @@ public interface BoardStatusesDao {
 
     void insertOrUpdate(int boardId, ChessBoardStatus status);
 
-    void delete(int boardId);
-
 }

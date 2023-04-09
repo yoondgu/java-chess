@@ -65,11 +65,5 @@ public class JdbcBoardPiecesDao implements BoardPiecesDao {
                 file, rank, pieceTypeName, pieceCampName
         ));
     }
-
-    @Override
-    public void delete(int boardId) {
-        final String query = "DELETE FROM board_pieces WHERE board_id = ?";
-
-        jdbcTemplate.executeUpdate(query, List.of(boardId));
-    }
+    
 }
