@@ -1,7 +1,11 @@
 package chess.service;
 
 import chess.dao.boardpieces.BoardPiecesDao;
+import chess.dao.boardpieces.InMemoryBoardPiecesDao;
+import chess.dao.boardpieces.JdbcBoardPiecesDao;
 import chess.dao.boardstatuses.BoardStatusesDao;
+import chess.dao.boardstatuses.InMemoryBoardStatusesDao;
+import chess.dao.boardstatuses.JdbcBoardStatusesDao;
 import chess.domain.Camp;
 import chess.domain.ChessBoard;
 import chess.domain.PieceInitializer;
@@ -16,9 +20,21 @@ public class ChessBoardService {
     private final BoardPiecesDao boardPiecesDao;
     private final BoardStatusesDao boardStatusesDao;
 
-    public ChessBoardService(final BoardPiecesDao boardPiecesDao, final BoardStatusesDao boardStatusesDao) {
+    private ChessBoardService(final BoardPiecesDao boardPiecesDao, final BoardStatusesDao boardStatusesDao) {
         this.boardPiecesDao = boardPiecesDao;
         this.boardStatusesDao = boardStatusesDao;
+    }
+
+    public static ChessBoardService ofJDBCDao() {
+        return new ChessBoardService(new JdbcBoardPiecesDao(), new JdbcBoardStatusesDao());
+    }
+
+    public static ChessBoardService ofInMemoryDao() {
+        return new ChessBoardService(new InMemoryBoardPiecesDao(), new InMemoryBoardStatusesDao());
+    }
+
+    public static ChessBoardService of(BoardPiecesDao boardPiecesDao, BoardStatusesDao boardStatusesDao) {
+        return new ChessBoardService(boardPiecesDao, boardStatusesDao);
     }
 
     public ChessBoard loadChessBoard(int boardId) {

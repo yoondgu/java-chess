@@ -11,7 +11,7 @@ public class ChessBoardFixture {
     public static final int FIXTURE_BOARD_ID = 1;
 
     public static ChessBoardService createServiceOfEmpty() {
-        return new ChessBoardService(new InMemoryBoardPiecesDao(), new InMemoryBoardStatusesDao());
+        return ChessBoardService.ofInMemoryDao();
     }
 
     public static ChessBoardService createServiceOfBoard(Camp existingBoardTurn) {
@@ -21,7 +21,7 @@ public class ChessBoardFixture {
         InMemoryBoardStatusesDao boardStatusesDao = new InMemoryBoardStatusesDao();
         boardStatusesDao.insertOrUpdate(FIXTURE_BOARD_ID, new ChessBoardStatus(existingBoardTurn, false));
 
-        return new ChessBoardService(boardPiecesDao, boardStatusesDao);
+        return ChessBoardService.of(boardPiecesDao, boardStatusesDao);
     }
 
     public static ChessBoardService createServiceOfOverBoard() {
@@ -31,7 +31,7 @@ public class ChessBoardFixture {
         InMemoryBoardStatusesDao boardStatusesDao = new InMemoryBoardStatusesDao();
         boardStatusesDao.insertOrUpdate(FIXTURE_BOARD_ID, new ChessBoardStatus(Camp.WHITE, true));
 
-        return new ChessBoardService(boardPiecesDao, boardStatusesDao);
+        return ChessBoardService.of(boardPiecesDao, boardStatusesDao);
     }
 
 }

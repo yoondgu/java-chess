@@ -6,8 +6,6 @@ import static chess.service.ChessBoardFixture.createServiceOfOverBoard;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-import chess.dao.boardpieces.InMemoryBoardPiecesDao;
-import chess.dao.boardstatuses.InMemoryBoardStatusesDao;
 import chess.domain.Camp;
 import chess.domain.ChessBoard;
 import chess.domain.PieceInitializer;
@@ -22,7 +20,7 @@ class ChessBoardServiceTest {
 
     @BeforeEach
     void setUp() {
-        chessBoardService = new ChessBoardService(new InMemoryBoardPiecesDao(), new InMemoryBoardStatusesDao());
+        chessBoardService = ChessBoardService.ofInMemoryDao();
     }
 
     @DisplayName("없는 방 번호일 경우 새 보드, 기존 방 번호일 경우 해당 보드 정보를 불러온다.")
