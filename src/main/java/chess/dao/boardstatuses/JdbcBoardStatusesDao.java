@@ -1,6 +1,7 @@
 package chess.dao.boardstatuses;
 
 import chess.dao.JdbcTemplate;
+import chess.dao.RowMapper;
 import chess.domain.Camp;
 import chess.dto.ChessBoardStatus;
 import java.util.ArrayList;
@@ -10,34 +11,36 @@ import java.util.Optional;
 
 public class JdbcBoardStatusesDao implements BoardStatusesDao {
 
+    private static final RowMapper<List<Integer>> boardIdsRowMapper = resultSet -> {
+        List<Integer> ids = new ArrayList<>();
+        while (resultSet.next()) {
+            ids.add(resultSet.getInt(1));
+        }
+        return ids;
+    };
+    private static final RowMapper<ChessBoardStatus> chessBoardStatusRowMapper = resultSet -> {
+        if (resultSet.next()) {
+            return new ChessBoardStatus(
+                    Camp.valueOf(resultSet.getString(1)),
+                    resultSet.getBoolean(2)
+            );
+        }
+        return null;
+    };
+
     private final JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
     public List<Integer> findAllNotOverBoardIds() {
         final String query = "SELECT board_id FROM board_statuses WHERE is_over = false";
 
-        return jdbcTemplate.executeQuery(query, Collections.emptyList(), resultSet -> {
-            List<Integer> ids = new ArrayList<>();
-            while (resultSet.next()) {
-                ids.add(resultSet.getInt(1));
-            }
-            return ids;
-        });
+        return jdbcTemplate.executeQuery(query, Collections.emptyList(), boardIdsRowMapper);
     }
 
     @Override
     public Optional<ChessBoardStatus> findByBoardId(final int boardId) {
         final String query = "SELECT current_turn, is_over FROM board_statuses WHERE board_id = ? AND is_over = false";
 
-        final ChessBoardStatus result = jdbcTemplate.executeQuery(query, List.of(boardId),
-                resultSet -> {
-                    if (resultSet.next()) {
-                        return new ChessBoardStatus(
-                                Camp.valueOf(resultSet.getString(1)),
-                                resultSet.getBoolean(2)
-                        );
-                    }
-                    return null;
-                });
+        final ChessBoardStatus result = jdbcTemplate.executeQuery(query, List.of(boardId), chessBoardStatusRowMapper);
 
         return Optional.ofNullable(result);
     }

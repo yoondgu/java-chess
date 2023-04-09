@@ -1,6 +1,7 @@
 package chess.dao.boardpieces;
 
 import chess.dao.JdbcTemplate;
+import chess.dao.RowMapper;
 import chess.domain.Camp;
 import chess.domain.Position;
 import chess.domain.piece.Piece;
@@ -13,6 +14,18 @@ import java.util.Optional;
 
 public class JdbcBoardPiecesDao implements BoardPiecesDao {
 
+    private static final RowMapper<Map<Position, Piece>> piecesByPositionRowMapper = resultSet -> {
+        Map<Position, Piece> piecesByPosition = new HashMap<>();
+        while (resultSet.next()) {
+            int file = resultSet.getInt(1);
+            int rank = resultSet.getInt(2);
+            PieceType pieceType = PieceType.valueOf(resultSet.getString(3));
+            Camp pieceCamp = Camp.valueOf(resultSet.getString(4));
+            piecesByPosition.put(Position.of(file, rank), pieceType.createPiece(pieceCamp));
+        }
+        return piecesByPosition;
+    };
+
     private final JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
     @Override
@@ -23,17 +36,7 @@ public class JdbcBoardPiecesDao implements BoardPiecesDao {
                 + "AND p.board_id = s.board_id "
                 + "AND s.is_over = 'N'";
 
-        Map<Position, Piece> result = jdbcTemplate.executeQuery(query, List.of(boardId), resultSet -> {
-            Map<Position, Piece> piecesByPosition = new HashMap<>();
-            while (resultSet.next()) {
-                int file = resultSet.getInt(1);
-                int rank = resultSet.getInt(2);
-                PieceType pieceType = PieceType.valueOf(resultSet.getString(3));
-                Camp pieceCamp = Camp.valueOf(resultSet.getString(4));
-                piecesByPosition.put(Position.of(file, rank), pieceType.createPiece(pieceCamp));
-            }
-            return piecesByPosition;
-        });
+        Map<Position, Piece> result = jdbcTemplate.executeQuery(query, List.of(boardId), piecesByPositionRowMapper);
 
         if (result.isEmpty()) {
             return Optional.empty();
@@ -65,5 +68,5 @@ public class JdbcBoardPiecesDao implements BoardPiecesDao {
                 file, rank, pieceTypeName, pieceCampName
         ));
     }
-    
+
 }
